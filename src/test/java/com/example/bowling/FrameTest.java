@@ -23,33 +23,34 @@ class FrameTest {
         assertEquals(List.of(), frame.getAttempts());
         assertEquals(10, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
+        assertEquals(0, frame.getLocalScore());
     }
 
     @Test
     void attemptWithNoPins() throws Exception {
-        Boolean attempt = frame.hit(0);
-        assertEquals(Boolean.FALSE, attempt);
+        assertEquals(Boolean.FALSE, frame.hit(0));
         assertEquals(List.of(0), frame.getAttempts());
         assertEquals(10, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
+        assertEquals(0, frame.getLocalScore());
     }
 
     @Test
     void attemptWith5Pins() throws Exception {
-        Boolean attempt = frame.hit(5);
-        assertEquals(Boolean.FALSE, attempt);
+        assertEquals(Boolean.FALSE, frame.hit(5));
         assertEquals(List.of(5), frame.getAttempts());
         assertEquals(5, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
+        assertEquals(5, frame.getLocalScore());
     }
 
     @Test
     void attemptWithStrike() throws Exception {
-        Boolean attempt = frame.hit(10);
-        assertEquals(Boolean.TRUE, attempt);
+        assertEquals(Boolean.TRUE, frame.hit(10));
         assertEquals(List.of(10), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.STRIKE, frame.getType());
+        assertEquals(10, frame.getLocalScore());
     }
 
     @Test
@@ -59,17 +60,17 @@ class FrameTest {
         assertEquals(List.of(8, 2), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.SPARE, frame.getType());
+        assertEquals(10, frame.getLocalScore());
     }
 
     @Test
     void attemptTwice() throws Exception {
-        Boolean firstAttempt = frame.hit(1);
-        Boolean secondAttempt = frame.hit(1);
-        assertEquals(Boolean.FALSE, firstAttempt);
-        assertEquals(Boolean.TRUE, secondAttempt);
+        assertEquals(Boolean.FALSE, frame.hit(1));
+        assertEquals(Boolean.TRUE, frame.hit(1));
         assertEquals(List.of(1, 1), frame.getAttempts());
         assertEquals(8, frame.getStandingPins());
         assertEquals(FrameType.OPEN, frame.getType());
+        assertEquals(2, frame.getLocalScore());
     }
 
     @Test
