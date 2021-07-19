@@ -17,15 +17,13 @@ public class ScoreSheet {
         }
     }
 
-    public Boolean hit(Integer pins) throws Exception {
+    public void register(Integer pins) throws Exception {
         if (activeIndex >= 10) {
             throw new Exception("No more frames");
         }
-        Boolean jumpFrame = frames.get(activeIndex).hit(pins);
-        if (jumpFrame) {
+        if (frames.get(activeIndex).hit(pins)) {
             activeIndex++;
         }
-        return jumpFrame;
     }
 
     public Integer getActiveIndex() {
@@ -34,5 +32,9 @@ public class ScoreSheet {
 
     public Frame getActiveFrame() {
         return frames.get(activeIndex);
+    }
+
+    public Integer getTotalScore() {
+        return 0;
     }
 }

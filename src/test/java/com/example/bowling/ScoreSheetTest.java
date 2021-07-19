@@ -23,15 +23,15 @@ class ScoreSheetTest {
 
     @Test
     void changesActualIndexAfterOpenFrame() throws Exception {
-        assertEquals(Boolean.FALSE, scoreSheet.hit(1));
-        assertEquals(Boolean.TRUE, scoreSheet.hit(2));
+        scoreSheet.register(1);
+        scoreSheet.register(2);
         assertEquals(1, scoreSheet.getActiveIndex());
         assertEquals(10, scoreSheet.getActiveFrame().getStandingPins());
     }
 
     @Test
     void changesActualIndexAfterStrike() throws Exception {
-        assertEquals(Boolean.TRUE, scoreSheet.hit(10));
+        scoreSheet.register(10);
         assertEquals(1, scoreSheet.getActiveIndex());
         assertEquals(10, scoreSheet.getActiveFrame().getStandingPins());
     }
