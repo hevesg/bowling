@@ -22,7 +22,7 @@ class FrameTest {
     void initializedCorrectly() {
         assertEquals(List.of(), frame.getAttempts());
         assertEquals(10, frame.getStandingPins());
-        assertEquals(FrameType.EMPTY, frame.getType());
+        assertEquals(FrameType.NONE, frame.getType());
     }
 
     @Test
@@ -31,7 +31,7 @@ class FrameTest {
         assertEquals(Boolean.FALSE, attempt);
         assertEquals(List.of(0), frame.getAttempts());
         assertEquals(10, frame.getStandingPins());
-        assertEquals(FrameType.EMPTY, frame.getType());
+        assertEquals(FrameType.NONE, frame.getType());
     }
 
     @Test
@@ -40,7 +40,7 @@ class FrameTest {
         assertEquals(Boolean.FALSE, attempt);
         assertEquals(List.of(5), frame.getAttempts());
         assertEquals(5, frame.getStandingPins());
-        assertEquals(FrameType.EMPTY, frame.getType());
+        assertEquals(FrameType.NONE, frame.getType());
     }
 
     @Test

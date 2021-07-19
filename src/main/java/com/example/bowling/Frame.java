@@ -11,13 +11,13 @@ public class Frame {
     public Frame() {
         standingPins = 10;
         attempts = new ArrayList<>();
-        type = FrameType.EMPTY;
+        type = FrameType.NONE;
     }
 
     public Boolean hit(Integer pins) throws Exception {
         if (pins > standingPins) {
             throw new Exception("Too many pins are hit");
-        } else if (type != FrameType.EMPTY) {
+        } else if (type != FrameType.NONE) {
             throw new Exception("Frame is closed");
         }
 

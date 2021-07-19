@@ -1,7 +1,7 @@
 package com.example.bowling;
 
 public enum FrameType {
-    EMPTY,
+    NONE,
     OPEN,
     SPARE,
     STRIKE
