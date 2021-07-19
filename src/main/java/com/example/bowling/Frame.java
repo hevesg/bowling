@@ -25,13 +25,13 @@ public class Frame {
         standingPins -= pins;
 
         if ((standingPins == 0) || (attempts.size() == 2)) {
-            updateType();
+            finalizeCard();
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
     }
 
-    private void updateType() {
+    private void finalizeCard() {
         if (standingPins == 0 && attempts.size() == 1) {
             type = FrameType.STRIKE;
         } else if (standingPins == 0 && attempts.size() == 2) {
@@ -51,5 +51,9 @@ public class Frame {
 
     public FrameType getType() {
         return type;
+    }
+
+    public Integer getLocalScore() {
+        return 10 - standingPins;
     }
 }
