@@ -14,7 +14,7 @@ public class Frame {
         type = FrameType.NONE;
     }
 
-    public Boolean hit(Integer pins) throws Exception {
+    public Boolean register(Integer pins) throws Exception {
         if (pins > standingPins) {
             throw new Exception("Too many pins are hit");
         } else if (type != FrameType.NONE) {

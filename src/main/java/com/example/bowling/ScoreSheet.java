@@ -21,7 +21,7 @@ public class ScoreSheet {
         if (activeIndex >= 10) {
             throw new Exception("No more frames");
         }
-        if (frames.get(activeIndex).hit(pins)) {
+        if (getActiveFrame().register(pins)) {
             activeIndex++;
         }
     }

@@ -28,7 +28,7 @@ class FrameTest {
 
     @Test
     void attemptWithNoPins() throws Exception {
-        assertEquals(Boolean.FALSE, frame.hit(0));
+        assertEquals(Boolean.FALSE, frame.register(0));
         assertEquals(List.of(0), frame.getAttempts());
         assertEquals(10, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
@@ -37,7 +37,7 @@ class FrameTest {
 
     @Test
     void attemptWith5Pins() throws Exception {
-        assertEquals(Boolean.FALSE, frame.hit(5));
+        assertEquals(Boolean.FALSE, frame.register(5));
         assertEquals(List.of(5), frame.getAttempts());
         assertEquals(5, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
@@ -46,7 +46,7 @@ class FrameTest {
 
     @Test
     void attemptWithStrike() throws Exception {
-        assertEquals(Boolean.TRUE, frame.hit(10));
+        assertEquals(Boolean.TRUE, frame.register(10));
         assertEquals(List.of(10), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.STRIKE, frame.getType());
@@ -55,8 +55,8 @@ class FrameTest {
 
     @Test
     void attemptWithSpare() throws Exception {
-        assertEquals(Boolean.FALSE, frame.hit(8));
-        assertEquals(Boolean.TRUE, frame.hit(2));
+        assertEquals(Boolean.FALSE, frame.register(8));
+        assertEquals(Boolean.TRUE, frame.register(2));
         assertEquals(List.of(8, 2), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.SPARE, frame.getType());
@@ -65,8 +65,8 @@ class FrameTest {
 
     @Test
     void attemptTwice() throws Exception {
-        assertEquals(Boolean.FALSE, frame.hit(1));
-        assertEquals(Boolean.TRUE, frame.hit(1));
+        assertEquals(Boolean.FALSE, frame.register(1));
+        assertEquals(Boolean.TRUE, frame.register(1));
         assertEquals(List.of(1, 1), frame.getAttempts());
         assertEquals(8, frame.getStandingPins());
         assertEquals(FrameType.OPEN, frame.getType());
@@ -75,13 +75,13 @@ class FrameTest {
 
     @Test
     void attemptWithMoreHitsThanStanding() {
-        assertThrows(Exception.class, () -> frame.hit(11));
+        assertThrows(Exception.class, () -> frame.register(11));
     }
 
     @Test
     void attemptOnClosedFrame() throws Exception {
-        frame.hit(1);
-        frame.hit(1);
-        assertThrows(Exception.class, () -> frame.hit(1));
+        frame.register(1);
+        frame.register(1);
+        assertThrows(Exception.class, () -> frame.register(1));
     }
 }
