@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-class FrameTest {
-    private Frame frame;
-    private Frame nextFrame;
+class NormalFrameTest {
+    private NormalFrame frame;
+    private NormalFrame nextFrame;
 
     @BeforeEach
     void init() {
-        frame = new Frame(null);
-        nextFrame = new Frame(frame);
+        frame = new NormalFrame(null);
+        nextFrame = new NormalFrame(frame);
     }
 
     @Test

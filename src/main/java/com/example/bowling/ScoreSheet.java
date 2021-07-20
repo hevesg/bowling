@@ -11,10 +11,11 @@ public class ScoreSheet {
     public ScoreSheet() {
         frames = new ArrayList<>();
         activeIndex = 0;
-        frames.add(new Frame(null));
-        for (int i = 0; i < 9; i++) {
-            frames.add(new Frame(frames.get(i)));
+        frames.add(new NormalFrame(null));
+        for (int i = 0; i < 8; i++) {
+            frames.add(new NormalFrame(frames.get(i)));
         }
+        frames.add(new LastFrame(frames.get(8)));
     }
 
     public void register(Integer pins) throws Exception {

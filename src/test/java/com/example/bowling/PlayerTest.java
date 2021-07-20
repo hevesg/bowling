@@ -41,7 +41,7 @@ class PlayerTest {
         ringo.hit(10);
         ringo.hit(2);
         ringo.hit(8);
-        // ringo.hit(6);
+        ringo.hit(6);
         assertEquals(133, ringo.getTotalScore());
     }
 }

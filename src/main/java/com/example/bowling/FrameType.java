@@ -4,5 +4,6 @@ public enum FrameType {
     NONE,
     OPEN,
     SPARE,
+    LAST,
     STRIKE
 }
