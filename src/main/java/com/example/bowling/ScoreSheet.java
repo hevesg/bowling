@@ -8,12 +8,12 @@ public class ScoreSheet {
     private final List<Frame> frames;
     private Integer activeIndex;
 
-
     public ScoreSheet() {
         frames = new ArrayList<>();
         activeIndex = 0;
-        for (int i = 0; i < 10; i++) {
-            frames.add(new Frame());
+        frames.add(new Frame(null));
+        for (int i = 0; i < 9; i++) {
+            frames.add(new Frame(frames.get(i)));
         }
     }
 
@@ -21,7 +21,8 @@ public class ScoreSheet {
         if (activeIndex >= 10) {
             throw new Exception("No more frames");
         }
-        if (getActiveFrame().register(pins)) {
+        Boolean jumpFrame = getActiveFrame().register(pins);
+        if (jumpFrame) {
             activeIndex++;
         }
     }
@@ -35,6 +36,6 @@ public class ScoreSheet {
     }
 
     public Integer getTotalScore() {
-        return 0;
+        return frames.stream().reduce(0, (subtotal, frame) -> subtotal + frame.getLocalScore(), Integer::sum);
     }
 }

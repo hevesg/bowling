@@ -12,10 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 class FrameTest {
     private Frame frame;
+    private Frame nextFrame;
 
     @BeforeEach
     void init() {
-        frame = new Frame();
+        frame = new Frame(null);
+        nextFrame = new Frame(frame);
     }
 
     @Test
@@ -41,7 +43,7 @@ class FrameTest {
         assertEquals(List.of(5), frame.getAttempts());
         assertEquals(5, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
-        assertEquals(5, frame.getLocalScore());
+        assertEquals(0, frame.getLocalScore());
     }
 
     @Test
@@ -50,7 +52,7 @@ class FrameTest {
         assertEquals(List.of(10), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.STRIKE, frame.getType());
-        assertEquals(10, frame.getLocalScore());
+        assertEquals(0, frame.getLocalScore());
     }
 
     @Test
@@ -60,7 +62,7 @@ class FrameTest {
         assertEquals(List.of(8, 2), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.SPARE, frame.getType());
-        assertEquals(10, frame.getLocalScore());
+        assertEquals(0, frame.getLocalScore());
     }
 
     @Test
@@ -83,5 +85,32 @@ class FrameTest {
         frame.register(1);
         frame.register(1);
         assertThrows(Exception.class, () -> frame.register(1));
+    }
+
+    @Test
+    void updatePreviousWithStrike() throws Exception {
+        frame.register(10);
+        nextFrame.register(5);
+        nextFrame.register(4);
+        assertEquals(19, frame.getLocalScore());
+    }
+
+    @Test
+    void updatePreviousWithSpare() throws Exception {
+        frame.register(5);
+        frame.register(5);
+        nextFrame.register(5);
+        nextFrame.register(4);
+        assertEquals(15, frame.getLocalScore());
+    }
+
+    @Test
+    void noUpdatePreviousWithOpen() throws Exception {
+        frame.register(5);
+        frame.register(0);
+        nextFrame.register(5);
+        nextFrame.register(4);
+        assertEquals(5, frame.getLocalScore());
+        assertEquals(9, nextFrame.getLocalScore());
     }
 }

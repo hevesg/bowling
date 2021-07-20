@@ -11,6 +11,10 @@ public class Player {
         scoreSheet.register(pins);
     }
 
+    public ScoreSheet getScoreSheet() {
+        return scoreSheet;
+    }
+
     public Integer getTotalScore() {
         return scoreSheet.getTotalScore();
     }

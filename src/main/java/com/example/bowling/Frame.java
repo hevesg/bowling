@@ -7,10 +7,14 @@ public class Frame {
     private Integer standingPins;
     private final List<Integer> attempts;
     private FrameType type;
+    private final Frame previousFrame;
+    private Integer localScore;
 
-    public Frame() {
+    public Frame(Frame previous) {
+        previousFrame = previous;
         standingPins = 10;
         attempts = new ArrayList<>();
+        localScore = 0;
         type = FrameType.NONE;
     }
 
@@ -26,9 +30,24 @@ public class Frame {
 
         if ((standingPins == 0) || (attempts.size() == 2)) {
             finalizeCard();
+            if (hasPreviousFrame()) {
+                previousFrame.finalizeScore(this);
+            }
+            if (isOpen()) {
+                localScore = attempts.get(0) + attempts.get(1);
+            }
             return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
         }
-        return Boolean.FALSE;
+    }
+
+    private void finalizeScore(Frame next) {
+        if (isStrike()) {
+            localScore = 10 + 10 - next.getStandingPins();
+        } else if (isSpare()) {
+            localScore = 10 + next.getAttempts().get(0);
+        }
     }
 
     private void finalizeCard() {
@@ -39,6 +58,22 @@ public class Frame {
         } else if (standingPins > 0 && attempts.size() == 2) {
             type = FrameType.OPEN;
         }
+    }
+
+    public Boolean isStrike() {
+        return type == FrameType.STRIKE;
+    }
+
+    public Boolean isSpare() {
+        return type == FrameType.SPARE;
+    }
+
+    public Boolean isOpen() {
+        return type == FrameType.OPEN;
+    }
+
+    public Boolean hasPreviousFrame() {
+        return previousFrame != null;
     }
 
     public Integer getStandingPins() {
@@ -54,6 +89,7 @@ public class Frame {
     }
 
     public Integer getLocalScore() {
-        return 10 - standingPins;
+        return localScore;
     }
+
 }
