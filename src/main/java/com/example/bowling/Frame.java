@@ -3,7 +3,7 @@ package com.example.bowling;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Frame {
+abstract class Frame {
     protected Integer standingPins;
     protected final List<Integer> attempts;
     protected FrameType type;
@@ -21,9 +21,9 @@ public abstract class Frame {
 
     protected abstract void finalizeScore(Frame next);
 
-    public abstract Boolean register(Integer pins) throws Exception;
+    abstract Boolean registerHit(Integer pins) throws Exception;
 
-    public void validateHit(Integer pins) throws Exception {
+    protected void validateHit(Integer pins) throws Exception {
         if (pins > standingPins) {
             throw new Exception("Too many pins are hit");
         } else if (type != FrameType.NONE) {
@@ -31,7 +31,7 @@ public abstract class Frame {
         }
     }
 
-    public Boolean hasPreviousFrame() {
+    protected Boolean hasPreviousFrame() {
         return previousFrame != null;
     }
 
@@ -47,7 +47,7 @@ public abstract class Frame {
         return type;
     }
 
-    public Integer getLocalScore() {
+    protected Integer getLocalScore() {
         return attempts.stream().reduce(0, Integer::sum);
     }
 
@@ -65,6 +65,10 @@ public abstract class Frame {
 
     public Boolean isOpen() {
         return type == FrameType.OPEN;
+    }
+
+    public Boolean hasStandingPins() {
+        return standingPins > 0;
     }
 
     public Integer getTotalScore() {

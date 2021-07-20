@@ -1,18 +1,18 @@
 package com.example.bowling;
 
-public class NormalFrame extends Frame {
+class NormalFrame extends Frame {
 
-    public NormalFrame(Frame previous) {
+    NormalFrame(Frame previous) {
         super(previous);
         maxAttempts = 2;
     }
 
     private void closeFrame() {
-        if (standingPins == 0 && attempts.size() == 1) {
+        if (!hasStandingPins() && attempts.size() == 1) {
             type = FrameType.STRIKE;
-        } else if (standingPins == 0 && attempts.size() == maxAttempts) {
+        } else if (!hasStandingPins() && attempts.size() == maxAttempts) {
             type = FrameType.SPARE;
-        } else if (standingPins > 0 && attempts.size() == maxAttempts) {
+        } else if (hasStandingPins() && attempts.size() == maxAttempts) {
             type = FrameType.OPEN;
         }
 
@@ -40,7 +40,7 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public Boolean register(Integer pins) throws Exception {
+    Boolean registerHit(Integer pins) throws Exception {
         validateHit(pins);
 
         attempts.add(pins);

@@ -3,14 +3,18 @@ package com.example.bowling;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreSheet {
+class ScoreSheet {
 
     private final List<Frame> frames;
     private Integer activeIndex;
 
-    public ScoreSheet() {
+    ScoreSheet() {
         frames = new ArrayList<>();
         activeIndex = 0;
+        build();
+    }
+
+    private void build() {
         frames.add(new NormalFrame(null));
         for (int i = 0; i < 8; i++) {
             frames.add(new NormalFrame(frames.get(i)));
@@ -18,11 +22,11 @@ public class ScoreSheet {
         frames.add(new LastFrame(frames.get(8)));
     }
 
-    public void register(Integer pins) throws Exception {
+    void registerHit(Integer pins) throws Exception {
         if (activeIndex >= 10) {
             throw new Exception("No more frames");
         }
-        Boolean jumpFrame = getActiveFrame().register(pins);
+        Boolean jumpFrame = getActiveFrame().registerHit(pins);
         if (jumpFrame) {
             activeIndex++;
         }

@@ -1,8 +1,8 @@
 package com.example.bowling;
 
-public class LastFrame extends Frame {
+class LastFrame extends Frame {
 
-    public LastFrame(Frame previous) {
+    LastFrame(Frame previous) {
         super(previous);
         maxAttempts = 3;
     }
@@ -11,13 +11,13 @@ public class LastFrame extends Frame {
     protected void finalizeScore(Frame next) { }
 
     @Override
-    public Boolean register(Integer pins) throws Exception {
+    public Boolean registerHit(Integer pins) throws Exception {
         validateHit(pins);
 
         attempts.add(pins);
         standingPins -= pins;
 
-        if (attempts.size() < maxAttempts && standingPins == 0) {
+        if (attempts.size() < maxAttempts && !hasStandingPins()) {
             standingPins = 10;
             return Boolean.FALSE;
         } else if (attempts.size() < 2) {

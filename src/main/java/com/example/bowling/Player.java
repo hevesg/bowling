@@ -8,7 +8,7 @@ public class Player {
     }
 
     public void hit(Integer pins) throws Exception {
-        scoreSheet.register(pins);
+        scoreSheet.registerHit(pins);
     }
 
     public ScoreSheet getScoreSheet() {
