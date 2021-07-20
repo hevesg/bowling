@@ -37,6 +37,11 @@ public class ScoreSheet {
     }
 
     public Integer getTotalScore() {
-        return frames.stream().reduce(0, (subtotal, frame) -> subtotal + frame.getLocalScore(), Integer::sum);
+        return frames.stream().reduce(0, (subtotal, frame) -> subtotal + frame.getScore(), Integer::sum);
+    }
+
+    @Override
+    public String toString() {
+        return String.join("\n", frames.stream().map(Object::toString).toList());
     }
 }

@@ -8,14 +8,12 @@ public abstract class Frame {
     protected final List<Integer> attempts;
     protected FrameType type;
     protected final Frame previousFrame;
-    protected Integer localScore;
     protected Integer score;
 
     protected Frame(Frame previous) {
         previousFrame = previous;
         attempts = new ArrayList<>();
         standingPins = 10;
-        localScore = 0;
         type = FrameType.NONE;
         score = 0;
     }
@@ -48,7 +46,7 @@ public abstract class Frame {
     }
 
     public Integer getLocalScore() {
-        return localScore;
+        return attempts.stream().reduce(0, Integer::sum);
     }
 
     public Integer getScore() {
@@ -73,5 +71,10 @@ public abstract class Frame {
         } else {
             return score;
         }
+    }
+
+    @Override
+    public String toString() {
+        return getTotalScore() + ":\t" + String.join(" ", attempts.stream().map(Object::toString).toList());
     }
 }

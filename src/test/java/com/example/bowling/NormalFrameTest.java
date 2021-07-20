@@ -26,6 +26,7 @@ class NormalFrameTest {
         assertEquals(10, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
         assertEquals(0, frame.getLocalScore());
+        assertEquals(0, frame.getScore());
     }
 
     @Test
@@ -35,6 +36,7 @@ class NormalFrameTest {
         assertEquals(10, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
         assertEquals(0, frame.getLocalScore());
+        assertEquals(0, frame.getScore());
     }
 
     @Test
@@ -43,7 +45,8 @@ class NormalFrameTest {
         assertEquals(List.of(5), frame.getAttempts());
         assertEquals(5, frame.getStandingPins());
         assertEquals(FrameType.NONE, frame.getType());
-        assertEquals(0, frame.getLocalScore());
+        assertEquals(5, frame.getLocalScore());
+        assertEquals(0, frame.getScore());
     }
 
     @Test
@@ -63,7 +66,8 @@ class NormalFrameTest {
         assertEquals(List.of(8, 2), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.SPARE, frame.getType());
-        assertEquals(0, frame.getLocalScore());
+        assertEquals(10, frame.getLocalScore());
+        assertEquals(0, frame.getScore());
     }
 
     @Test
@@ -93,7 +97,8 @@ class NormalFrameTest {
         frame.register(10);
         nextFrame.register(5);
         nextFrame.register(4);
-        assertEquals(19, frame.getLocalScore());
+        assertEquals(10, frame.getLocalScore());
+        assertEquals(19, frame.getScore());
     }
 
     @Test
@@ -102,7 +107,8 @@ class NormalFrameTest {
         frame.register(5);
         nextFrame.register(5);
         nextFrame.register(4);
-        assertEquals(15, frame.getLocalScore());
+        assertEquals(10, frame.getLocalScore());
+        assertEquals(15, frame.getScore());
     }
 
     @Test
@@ -111,7 +117,7 @@ class NormalFrameTest {
         frame.register(0);
         nextFrame.register(5);
         nextFrame.register(4);
-        assertEquals(5, frame.getLocalScore());
-        assertEquals(9, nextFrame.getLocalScore());
+        assertEquals(5, frame.getScore());
+        assertEquals(9, nextFrame.getScore());
     }
 }

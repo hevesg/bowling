@@ -15,7 +15,6 @@ public class LastFrame extends Frame {
 
         attempts.add(pins);
         standingPins -= pins;
-        localScore += pins;
 
         if (attempts.size() < 3 && standingPins == 0) {
             standingPins = 10;
@@ -24,6 +23,7 @@ public class LastFrame extends Frame {
             return Boolean.FALSE;
         } else {
             previousFrame.finalizeScore(this);
+            score = getLocalScore();
             type = FrameType.LAST;
             return Boolean.TRUE;
         }

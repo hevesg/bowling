@@ -42,6 +42,7 @@ class PlayerTest {
         ringo.hit(2);
         ringo.hit(8);
         ringo.hit(6);
+        System.out.print(ringo.getScoreSheet().toString());
         assertEquals(133, ringo.getTotalScore());
     }
 }

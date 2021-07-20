@@ -20,9 +20,13 @@ public class NormalFrame extends Frame {
     protected void finalizeScore(Frame next) {
         if (isStrike() || isSpare()) {
             if (isStrike()) {
-                localScore += next.getLocalScore();
+                if (next.attempts.size() < 3) {
+                    score = getLocalScore() + next.getLocalScore();
+                } else {
+                    score = getLocalScore() + next.getAttempts().get(0) + next.getAttempts().get(1);
+                }
             } else if (isSpare()) {
-                localScore += next.getAttempts().get(0);
+                score = getLocalScore() + next.getAttempts().get(0);
             }
         }
     }
@@ -33,7 +37,6 @@ public class NormalFrame extends Frame {
 
         attempts.add(pins);
         standingPins -= pins;
-        localScore += pins;
 
         if ((standingPins == 0) || (attempts.size() == 2)) {
             finalizeCard();
@@ -41,7 +44,7 @@ public class NormalFrame extends Frame {
                 previousFrame.finalizeScore(this);
             }
             if (isOpen()) {
-                score = localScore;
+                score = getLocalScore();
             }
             return Boolean.TRUE;
         } else {
