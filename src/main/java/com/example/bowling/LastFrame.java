@@ -4,6 +4,7 @@ public class LastFrame extends Frame {
 
     public LastFrame(Frame previous) {
         super(previous);
+        maxAttempts = 3;
     }
 
     @Override
@@ -11,12 +12,12 @@ public class LastFrame extends Frame {
 
     @Override
     public Boolean register(Integer pins) throws Exception {
-        checkIfValidHit(pins);
+        validateHit(pins);
 
         attempts.add(pins);
         standingPins -= pins;
 
-        if (attempts.size() < 3 && standingPins == 0) {
+        if (attempts.size() < maxAttempts && standingPins == 0) {
             standingPins = 10;
             return Boolean.FALSE;
         } else if (attempts.size() < 2) {

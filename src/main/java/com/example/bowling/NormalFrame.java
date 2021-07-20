@@ -4,15 +4,23 @@ public class NormalFrame extends Frame {
 
     public NormalFrame(Frame previous) {
         super(previous);
+        maxAttempts = 2;
     }
 
-    private void finalizeCard() {
+    private void closeFrame() {
         if (standingPins == 0 && attempts.size() == 1) {
             type = FrameType.STRIKE;
-        } else if (standingPins == 0 && attempts.size() == 2) {
+        } else if (standingPins == 0 && attempts.size() == maxAttempts) {
             type = FrameType.SPARE;
-        } else if (standingPins > 0 && attempts.size() == 2) {
+        } else if (standingPins > 0 && attempts.size() == maxAttempts) {
             type = FrameType.OPEN;
+        }
+
+        if (hasPreviousFrame()) {
+            previousFrame.finalizeScore(this);
+        }
+        if (isOpen()) {
+            score = getLocalScore();
         }
     }
 
@@ -33,19 +41,14 @@ public class NormalFrame extends Frame {
 
     @Override
     public Boolean register(Integer pins) throws Exception {
-        checkIfValidHit(pins);
+        validateHit(pins);
 
         attempts.add(pins);
         standingPins -= pins;
 
-        if ((standingPins == 0) || (attempts.size() == 2)) {
-            finalizeCard();
-            if (hasPreviousFrame()) {
-                previousFrame.finalizeScore(this);
-            }
-            if (isOpen()) {
-                score = getLocalScore();
-            }
+        if ((standingPins == 0) || (attempts.size() == maxAttempts)) {
+            closeFrame();
+
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;

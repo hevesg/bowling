@@ -9,6 +9,7 @@ public abstract class Frame {
     protected FrameType type;
     protected final Frame previousFrame;
     protected Integer score;
+    protected Integer maxAttempts;
 
     protected Frame(Frame previous) {
         previousFrame = previous;
@@ -19,9 +20,10 @@ public abstract class Frame {
     }
 
     protected abstract void finalizeScore(Frame next);
+
     public abstract Boolean register(Integer pins) throws Exception;
 
-    public void checkIfValidHit(Integer pins) throws Exception {
+    public void validateHit(Integer pins) throws Exception {
         if (pins > standingPins) {
             throw new Exception("Too many pins are hit");
         } else if (type != FrameType.NONE) {

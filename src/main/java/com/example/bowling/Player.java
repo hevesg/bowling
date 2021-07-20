@@ -1,7 +1,7 @@
 package com.example.bowling;
 
 public class Player {
-    private ScoreSheet scoreSheet;
+    private final ScoreSheet scoreSheet;
 
     public Player() {
         scoreSheet = new ScoreSheet();
