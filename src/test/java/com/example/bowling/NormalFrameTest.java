@@ -52,7 +52,8 @@ class NormalFrameTest {
         assertEquals(List.of(10), frame.getAttempts());
         assertEquals(0, frame.getStandingPins());
         assertEquals(FrameType.STRIKE, frame.getType());
-        assertEquals(0, frame.getLocalScore());
+        assertEquals(10, frame.getLocalScore());
+        assertEquals(0, frame.getScore());
     }
 
     @Test

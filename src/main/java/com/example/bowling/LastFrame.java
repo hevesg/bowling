@@ -11,11 +11,7 @@ public class LastFrame extends Frame {
 
     @Override
     public Boolean register(Integer pins) throws Exception {
-        if (pins > standingPins) {
-            throw new Exception("Too many pins are hit");
-        } else if (type != FrameType.NONE) {
-            throw new Exception("Frame is closed");
-        }
+        checkIfValidHit(pins);
 
         attempts.add(pins);
         standingPins -= pins;
@@ -28,7 +24,6 @@ public class LastFrame extends Frame {
             return Boolean.FALSE;
         } else {
             previousFrame.finalizeScore(this);
-            totalScore = previousFrame.getTotalScore() + localScore;
             type = FrameType.LAST;
             return Boolean.TRUE;
         }

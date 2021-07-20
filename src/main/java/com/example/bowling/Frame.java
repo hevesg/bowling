@@ -9,7 +9,7 @@ public abstract class Frame {
     protected FrameType type;
     protected final Frame previousFrame;
     protected Integer localScore;
-    protected Integer totalScore;
+    protected Integer score;
 
     protected Frame(Frame previous) {
         previousFrame = previous;
@@ -17,11 +17,19 @@ public abstract class Frame {
         standingPins = 10;
         localScore = 0;
         type = FrameType.NONE;
-        totalScore = 0;
+        score = 0;
     }
 
     protected abstract void finalizeScore(Frame next);
     public abstract Boolean register(Integer pins) throws Exception;
+
+    public void checkIfValidHit(Integer pins) throws Exception {
+        if (pins > standingPins) {
+            throw new Exception("Too many pins are hit");
+        } else if (type != FrameType.NONE) {
+            throw new Exception("Frame is closed");
+        }
+    }
 
     public Boolean hasPreviousFrame() {
         return previousFrame != null;
@@ -43,6 +51,10 @@ public abstract class Frame {
         return localScore;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
     public Boolean isStrike() {
         return type == FrameType.STRIKE;
     }
@@ -56,6 +68,10 @@ public abstract class Frame {
     }
 
     public Integer getTotalScore() {
-        return totalScore;
+        if (hasPreviousFrame()) {
+            return previousFrame.getTotalScore() + score;
+        } else {
+            return score;
+        }
     }
 }
